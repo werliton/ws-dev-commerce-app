@@ -1,24 +1,25 @@
-import { useNavigate } from "react-router-dom";
 import { ShoppingBagIcon } from "../../common/icons/ShoppingBagIcon";
 import { Product } from "../../common/types/product";
-import Button from "../Button";
 import Divider from "../Divider";
 import Field from "../Field";
 import Typography from "../Typography";
 import Styles from "./CartSummary.module.css";
+import CartActions from "../CartActions";
+import Button from "../Button";
 
 type CartSummaryProps = {
   cartItems: Product[];
+  handleRedirect(e: React.MouseEvent<HTMLElement>): void;
+  onPayment(e: React.MouseEvent<HTMLElement>): void;
 };
 
-const CartSummary = ({ cartItems }: CartSummaryProps) => {
+const CartSummary = ({
+  cartItems,
+  handleRedirect,
+  onPayment,
+}: CartSummaryProps) => {
   const total = cartItems.reduce((acc, item) => acc + item.price, 0);
   const freight = cartItems.length > 0 ? 8 : 0;
-  const navigate = useNavigate();
-
-  const handleRedirect = () => {
-    navigate("/");
-  };
 
   return (
     <div className={Styles.cartSummary}>
@@ -51,14 +52,12 @@ const CartSummary = ({ cartItems }: CartSummaryProps) => {
           R$ {total + freight}
         </Typography>
       </div>
-      <div className={Styles.cartActions}>
+      <CartActions>
         <Button onClick={handleRedirect} variant="secondary">
           Continuar comprando
         </Button>
-        <Button onClick={() => console.log("pagamento")}>
-          Ir para pagamento
-        </Button>
-      </div>
+        <Button onClick={onPayment}>Ir para pagamento</Button>
+      </CartActions>
     </div>
   );
 };

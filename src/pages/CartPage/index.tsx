@@ -2,9 +2,10 @@ import Typography from "../../components/Typography";
 import Styles from "./CartPage.module.css";
 
 import { Product } from "../../common/types/product";
-import CartItem from "../../components/CartItem";
-import EmptyMessage from "../../components/EmptyMessage";
 import CartSummary from "../../components/CartSummary";
+import CartList from "../../components/CartList";
+import { useNavigate } from "react-router-dom";
+import EmptyMessage from "../../components/EmptyMessage";
 
 type CartPageProps = {
   cartItems: Product[];
@@ -12,6 +13,10 @@ type CartPageProps = {
 };
 
 const CartPage = ({ cartItems, removeFromCart }: CartPageProps) => {
+  const navigate = useNavigate();
+  const handleRedirect = () => navigate("/");
+  const handlePayment = () => console.log("pagamento");
+
   return (
     <main className="container">
       <div className={Styles.cartTitle}>
@@ -26,19 +31,18 @@ const CartPage = ({ cartItems, removeFromCart }: CartPageProps) => {
           >
             Detalhes da compra
           </Typography>
-          {cartItems?.length > 0 ? (
-            cartItems.map((item) => (
-              <CartItem
-                item={item}
-                removeFromCart={removeFromCart}
-                key={item.id}
-              />
-            ))
-          ) : (
+          {cartItems?.length > 0 && (
+            <CartList cartItems={cartItems} removeFromCart={removeFromCart} />
+          )}
+          {cartItems?.length == 0 && (
             <EmptyMessage>Não existem produtos no carrinho.</EmptyMessage>
           )}
         </div>
-        <CartSummary cartItems={cartItems} />
+        <CartSummary
+          cartItems={cartItems}
+          handleRedirect={handleRedirect}
+          onPayment={handlePayment}
+        />
       </section>
     </main>
   );
