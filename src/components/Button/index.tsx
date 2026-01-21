@@ -1,30 +1,24 @@
-import { CSSProperties, MouseEvent, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import classnames from "classnames"; // Para combinar classes dinamicamente
 import Styles from "./Button.module.css";
 
+// Aplicando o Principio: L (SOLID) Liskov Substitution: UM componente filho precisa suportar ou ter a capacidade de fornecer qualquer atributo do
+// componente pai, sem alterar o componente pai
+
 type ButtonProps = {
-  style?: CSSProperties;
   children?: ReactNode;
   variant?: "primary" | "secondary";
   size?: "small" | "medium" | "large"; // Define diferentes tamanhos
-  onClick: (e: MouseEvent<HTMLElement>) => void; // Manipulação de click adicional
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
   children,
   variant = "primary",
   size = "medium",
-  onClick,
-  style,
   ...props
 }: ButtonProps) => {
   return (
-    <button
-      style={style}
-      className={classnames(Styles[variant], Styles[size])}
-      onClick={onClick}
-      {...props}
-    >
+    <button className={classnames(Styles[variant], Styles[size])} {...props}>
       {children}
     </button>
   );
