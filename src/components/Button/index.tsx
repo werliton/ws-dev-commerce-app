@@ -2,10 +2,10 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import classnames from "classnames"; // Para combinar classes dinamicamente
 import Styles from "./Button.module.css";
 
-// Aplicando o Principio: L (SOLID) Liskov Substitution: UM componente filho precisa suportar ou ter a capacidade de fornecer qualquer atributo do
+// Aplicando o Principio: L (SOLID) Liskov Substitution: Um componente filho precisa suportar ou ter a capacidade de fornecer qualquer atributo do
 // componente pai, sem alterar o componente pai
 
-type ButtonProps = {
+export type ButtonProps = {
   children?: ReactNode;
   variant?: "primary" | "secondary";
   size?: "small" | "medium" | "large"; // Define diferentes tamanhos
