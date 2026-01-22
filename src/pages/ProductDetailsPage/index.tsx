@@ -36,7 +36,7 @@ function ProductDetailsPage({ addToCart }: ProductDetailsPageProps) {
         }
         setIsLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setError("Erro ao carregar os detalhes do produto.");
         setIsLoading(false);
       });

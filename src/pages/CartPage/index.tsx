@@ -9,10 +9,11 @@ import EmptyMessage from "../../components/EmptyMessage";
 
 type CartPageProps = {
   cartItems: Product[];
+  cartCount: number;
   removeFromCart: (id: number) => void;
 };
 
-const CartPage = ({ cartItems, removeFromCart }: CartPageProps) => {
+const CartPage = ({ cartItems, removeFromCart, cartCount }: CartPageProps) => {
   const navigate = useNavigate();
   const handleRedirect = () => navigate("/");
   const handlePayment = () => console.log("pagamento");
@@ -39,7 +40,9 @@ const CartPage = ({ cartItems, removeFromCart }: CartPageProps) => {
           )}
         </div>
         <CartSummary
-          cartItems={cartItems}
+          cartItemsCount={cartCount}
+          total={cartItems.reduce((acc, item) => acc + item.price, 0)}
+          freight={cartItems.length > 0 ? 8 : 0}
           handleRedirect={handleRedirect}
           onPayment={handlePayment}
         />
