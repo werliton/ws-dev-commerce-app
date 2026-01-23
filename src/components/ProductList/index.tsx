@@ -19,7 +19,6 @@ const ProductList = ({ title, products }: ProductListProps) => {
         {products.map((product) => (
           <Link to={`/produto/${product.id}`} key={product.id}>
             <Card
-              id={product.id}
               key={`product-card-${product.id}`}
               label={product.label}
               price={product.price}

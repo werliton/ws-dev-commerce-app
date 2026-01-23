@@ -4,9 +4,9 @@ import ProductDetail from "../../components/ProductDetail";
 import { Product } from "../../common/types/product";
 import StatusHandler from "../../common/utils/statusHandler";
 import { BackgroundBanner } from "../../components/BackgroundBanner";
-import { ProductService } from "../../common/services/productService";
 import httpClient from "../../common/lib/httpClient";
-import useFetchProductById from "../../common/hooks/useFetchProductById";
+import { ProductService } from "../../common/services/productService";
+import { useFetchProduct } from "../../common/hooks/useFetchProduct";
 
 type ProductDetailsPageProps = {
   addToCart: (product: Product) => void;
@@ -15,7 +15,11 @@ type ProductDetailsPageProps = {
 const productService = ProductService(httpClient);
 
 function ProductDetailsPage({ addToCart }: ProductDetailsPageProps) {
-  const { product, isLoading, error } = useFetchProductById(productService);
+  const {
+    product,
+    loading: isLoading,
+    error,
+  } = useFetchProduct(productService);
 
   return (
     <>
