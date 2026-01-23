@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import httpClient from "../../common/lib/httpClient";
 
 type FetchState<T> = {
   data: T | null;
@@ -15,12 +15,11 @@ const useFetch = <T>(url: string): FetchState<T> => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(url);
-        if (response.status !== 200) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        const response = await httpClient.get<T>(url);
+        if (!response) {
+          throw new Error(`HTTP error! status: ${response}`);
         }
-        const result = (await response.data) as T;
-        setData(result);
+        setData(response);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Erro desconhecido");
       } finally {
