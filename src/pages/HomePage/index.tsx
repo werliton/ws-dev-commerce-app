@@ -4,15 +4,15 @@ import HeroBanner from "../../components/HeroBanner";
 import Newsletter from "../../components/Newsletter";
 import ProductList from "../../components/ProductList";
 import Typography from "../../components/Typography";
-import { Category } from "../../common/types/category";
-import { CATEGORIES_BASE_URL } from "../../common/constants/endpoints";
 import StatusHandler from "../../common/utils/statusHandler";
-import useFetch from "../../hooks/useFetch";
 import { ProductService } from "../../common/services/productService";
 import httpClient from "../../common/lib/httpClient";
 import useFetchProducts from "../../common/hooks/useFetchProducts";
+import { CategoryService } from "../../common/services/categoryService";
+import { useFetchCategory } from "../../common/hooks/useFetchCategory";
 
 const productService = ProductService(httpClient);
+const categoryService = CategoryService(httpClient);
 
 function HomePage() {
   const handleSubscribe = (email: string) => {
@@ -21,10 +21,10 @@ function HomePage() {
 
   // Fetch de categorias
   const {
-    data: categoriesData,
+    categories,
     isLoading: isLoadingCategories,
     error: categoriesError,
-  } = useFetch<{ categories: Category[] }>(CATEGORIES_BASE_URL);
+  } = useFetchCategory(categoryService);
 
   // Fetch de produtos
   const {
@@ -49,7 +49,7 @@ function HomePage() {
       </HeroBanner>
       <main className="container">
         <StatusHandler isLoading={isLoadingCategories} error={categoriesError}>
-          <Categories categories={categoriesData?.categories || []} />
+          <Categories categories={categories || []} />
         </StatusHandler>
 
         <StatusHandler isLoading={isLoadingProducts} error={productsError}>
