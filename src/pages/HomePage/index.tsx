@@ -5,13 +5,14 @@ import Newsletter from "../../components/Newsletter";
 import ProductList from "../../components/ProductList";
 import Typography from "../../components/Typography";
 import { Category } from "../../common/types/category";
-import {
-  CATEGORIES_BASE_URL,
-  PRODUCTS_BASE_URL,
-} from "../../common/constants/endpoints";
-import { Product } from "../../common/types/product";
+import { CATEGORIES_BASE_URL } from "../../common/constants/endpoints";
 import StatusHandler from "../../common/utils/statusHandler";
 import useFetch from "../../hooks/useFetch";
+import { ProductService } from "../../common/services/productService";
+import httpClient from "../../common/lib/httpClient";
+import useFetchProducts from "../../common/hooks/useFetchProducts";
+
+const productService = ProductService(httpClient);
 
 function HomePage() {
   const handleSubscribe = (email: string) => {
@@ -27,10 +28,10 @@ function HomePage() {
 
   // Fetch de produtos
   const {
-    data: productsData,
+    products,
     isLoading: isLoadingProducts,
     error: productsError,
-  } = useFetch<{ products: Product[] }>(PRODUCTS_BASE_URL);
+  } = useFetchProducts(productService);
 
   return (
     <>
@@ -52,10 +53,7 @@ function HomePage() {
         </StatusHandler>
 
         <StatusHandler isLoading={isLoadingProducts} error={productsError}>
-          <ProductList
-            title="Promoções especiais"
-            products={productsData?.products || []}
-          />
+          <ProductList title="Promoções especiais" products={products || []} />
         </StatusHandler>
       </main>
       <Newsletter onSubscribe={handleSubscribe} />

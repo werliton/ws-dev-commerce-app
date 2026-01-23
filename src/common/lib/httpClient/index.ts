@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IHttpClient } from "./http.interface";
+import { IHttpClient } from "../../interfaces/http.interface";
 
 const httpClient: IHttpClient = {
   get: async <T>(url: string): Promise<T> => {
