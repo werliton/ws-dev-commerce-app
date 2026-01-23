@@ -2,13 +2,12 @@ import Styles from "./Card.module.css";
 import Typography from "../Typography";
 
 type CardProps = {
-  id: number;
   label: string;
   price: number;
   imageSrc: string;
 };
 
-const Card = ({ label, price, imageSrc, id }: CardProps) => {
+const Card = ({ label, price, imageSrc }: CardProps) => {
   return (
     <div className={Styles.card}>
       <div className={Styles.imageContainer}>

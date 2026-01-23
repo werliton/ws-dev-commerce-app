@@ -1,40 +1,16 @@
-import { CSSProperties, ReactNode } from "react";
+import { InputHTMLAttributes } from "react";
 import Styles from "./Input.module.css";
 
-type InputProps = {
-  icon?: ReactNode;
+export type InputProps = {
   variant?: "primary" | "secondary";
-  placeholder?: string;
-  value?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  id?: string;
-  style?: CSSProperties;
-  type?: string;
-};
+} & InputHTMLAttributes<HTMLInputElement>;
 
 const Input = ({
-  icon,
   variant = "primary",
-  onChange,
-  placeholder,
-  id,
-  style,
   type = "text",
   ...props
 }: InputProps) => {
-  return (
-    <div className={`${Styles.inputContainer} ${Styles[variant]}`}>
-      <input
-        type={type}
-        style={style}
-        {...props}
-        onChange={() => onChange}
-        id={id}
-        placeholder={placeholder}
-      />
-      {!!icon && <span className={Styles.iconContainer}>{icon}</span>}
-    </div>
-  );
+  return <input type={type} className={Styles[variant]} {...props} />;
 };
 
 export default Input;

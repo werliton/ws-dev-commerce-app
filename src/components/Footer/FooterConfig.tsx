@@ -36,14 +36,18 @@ export default function FooterConfig() {
   ];
 
   const paymentIcons = [
-    <VisaIcon />,
-    <MastercardIcon />,
-    <EloIcon />,
-    <DinnersIcon />,
-    <PixIcon />,
+    <VisaIcon key="visa" />,
+    <MastercardIcon key="mastercard" />,
+    <EloIcon key="elo" />,
+    <DinnersIcon key="diners" />,
+    <PixIcon key="pix" />,
   ];
 
-  const socialIcons = [<WhatsAppIcon />, <InstagramIcon />, <TiktokIcon />];
+  const socialIcons = [
+    <WhatsAppIcon key="whatsapp" />,
+    <InstagramIcon key="instagram" />,
+    <TiktokIcon key="tiktok" />,
+  ];
 
   return (
     <Footer

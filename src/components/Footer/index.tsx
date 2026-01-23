@@ -33,9 +33,9 @@ export default function Footer({
               </Typography>
             </div>
 
-            {sections.map((section, index) => (
+            {sections.map((section) => (
               <FooterSection
-                key={`footer-item-${index}`}
+                key={`footer-item-${section.title}`}
                 title={section.title}
                 items={section.items}
               />
@@ -50,7 +50,7 @@ export default function Footer({
                 Formas de Pagamento
               </Typography>
               <div className={styles.paymentIcons}>
-                {paymentIcons.map((icon, index) => icon)}
+                {paymentIcons.map((icon) => icon)}
               </div>
             </div>
 
@@ -59,7 +59,7 @@ export default function Footer({
                 Siga nossas redes:
               </Typography>
               <div className={styles.socialIcons}>
-                {socialIcons.map((icon, index) => icon)}
+                {socialIcons.map((icon) => icon)}
               </div>
             </div>
           </div>

@@ -3,10 +3,11 @@ import Styles from "./Header.module.scss";
 import { LogoIcon } from "../../common/icons/LogoIcon";
 import { CarrinhoIcon } from "../../common/icons/CarrinhoIcon";
 import { PerfilIcon } from "../../common/icons/PerfilIcon";
-import Input from "../Input";
 import { SearchIcon } from "../../common/icons/SearchIcon";
 import { Link } from "react-router-dom";
 import Typography from "../Typography";
+import InputIcon from "../InputIcon";
+import IconButton from "../IconButon";
 
 type HeaderProps = {
   cartCount: number;
@@ -43,16 +44,22 @@ const Header = ({ cartCount, onSearch }: HeaderProps) => {
             </ul>
           </nav>
           <div className={Styles.searchContainer}>
-            <Input
+            <InputIcon
               variant="secondary"
               value={query}
               onChange={handleInputChange}
               placeholder="O que você procura?"
-              icon={<SearchIcon />}
-            />
-            <button onClick={handleSearch}>
-              <i className="fa fa-search"></i>
-            </button>
+            >
+              <IconButton
+                onClick={handleSearch}
+                style={{
+                  position: "relative",
+                  right: 36,
+                }}
+              >
+                <SearchIcon />
+              </IconButton>
+            </InputIcon>
           </div>
           <div className={Styles.userActions}>
             <a href="#">Login</a>
