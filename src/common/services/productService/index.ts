@@ -15,5 +15,19 @@ export const ProductService = (http: IHttpClient): IProductService => {
         throw new Error("Erro ao buscar produtos");
       }
     },
+
+    async getProductById(id: string) {
+      try {
+        const response = await http.get<{ products: Product[] }>(
+          PRODUCTS_BASE_URL,
+        );
+        const foundProduct = response.products.find(
+          (product) => product.id.toString() === id,
+        );
+        return foundProduct || null;
+      } catch {
+        throw new Error("Erro ao buscar produto por ID");
+      }
+    },
   };
 };
